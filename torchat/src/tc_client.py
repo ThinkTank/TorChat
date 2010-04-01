@@ -97,8 +97,8 @@ class Buddy(object):
         self.bl = buddy_list
         self.address = address
         self.name = name
-        self.random1 = str(random.getrandbits(256))
-        self.random2 = str(random.getrandbits(256))
+        self.random1 = os.urandom(32)
+        self.random2 = os.urandom(32)
         self.conn_out = None
         self.conn_in = None
         self.status = STATUS_OFFLINE
@@ -555,7 +555,7 @@ class FileSender(threading.Thread):
         self.file_name = file_name
         self.file_name_short = os.path.basename(self.file_name)
         self.guiCallback = guiCallback
-        self.id = str(random.getrandbits(32))
+        self.id = os.urandom(4)
         self.buddy.bl.file_sender[self.buddy.address, self.id] = self
         self.file_size = 0
         self.block_size = 8192
@@ -1124,7 +1124,8 @@ class ProtocolMsg_message(ProtocolMsg):
         #to open a chat window and/or display the text.
         if self.buddy:
             if self.buddy in self.bl.list:
-                self.bl.onChatMessage(self.buddy, self.text)
+		if self.text.strip() != "":
+                	self.bl.onChatMessage(self.buddy, self.text)
             else:
                 print "(2) ***** wrong version reply to %s" % self.buddy.address
                 msg = "This is an automatic reply. "
@@ -1148,6 +1149,8 @@ class ProtocolMsg_filename(ProtocolMsg):
         self.file_size = int(file_size)
         self.block_size = int(block_size)
         self.file_name = self.file_name.decode("utf-8")
+	self.file_name = self.file_name.replace('\\','')
+	self.file_name = self.file_name.replace('/','')
 
     def execute(self):
         if not self.buddy:
