@@ -29,7 +29,6 @@ import version
 import dlg_settings
 import translations
 lang = translations.lang_en
-tb = config.tb
 
 ICON_NAMES = {tc_client.STATUS_OFFLINE : "offline.png",
               tc_client.STATUS_ONLINE : "online.png",
@@ -943,7 +942,7 @@ class FileDropTarget(wx.FileDropTarget):
                     file_name_utf8 += chr(ord(c))
                 file_name = file_name_utf8.decode("utf-8")
             except:
-                tb()
+                config.tb()
                 wx.MessageBox("there is a strange bug in wx for your platform with wx.FileDropTarget and non-ascii characters in file names")
                 return
         # --- end evel hack

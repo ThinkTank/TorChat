@@ -45,7 +45,6 @@ CB_TYPE_CHAT = 1
 CB_TYPE_FILE = 2
 CB_TYPE_OFFLINE_SENT = 3
 
-tb = config.tb # the traceback function has moved to config
 tor_pid = None
 tor_proc = None
 tor_timer = None
@@ -81,7 +80,7 @@ def createTemporaryFile(file_name):
         tmp = tempfile.mkstemp("_" + file_name, "torchat_incoming_", dir)
     except:
         print "(1) could not create temporary file in %s" % dir
-        tb()
+        config.tb()
         print "(1) trying system temporary folder"
         tmp = tempfile.mkstemp("_" + file_name, "torchat_incoming_")
     fd, file_name_tmp = tmp
@@ -679,9 +678,9 @@ class FileSender(threading.Thread):
                                  -1, 
                                  "error while sending %s" % self.file_name)
             except:
-                tb()
+                config.tb()
             self.close()
-            tb()
+            config.tb()
         
     def receivedOK(self, start):
         self.timeout_count = 0 # we have received a sign of life
@@ -693,7 +692,7 @@ class FileSender(threading.Thread):
             self.guiCallback(self.file_size, end)
         except:
             #cannot update gui
-            tb()
+            config.tb()
             self.close()
             
         self.start_ok = start
@@ -1314,7 +1313,7 @@ class Receiver(threading.Thread):
                                                               line)
                                 message.execute()
                             except:
-                                tb()
+                                config.tb()
                 else:
                     self.running = False
                     self.conn.onReceiverError()     
@@ -1323,7 +1322,7 @@ class Receiver(threading.Thread):
                 pass
             
             except socket.error:
-                tb(2)
+                config.tb(2)
                 self.running = False
                 self.conn.onReceiverError()
                                
@@ -1343,7 +1342,7 @@ class InConnection:
         try:
             self.socket.send(text)
         except:
-            tb()
+            config.tb()
             print "(2) in-connection send error."
             self.bl.onErrorIn(self)
             self.close()
@@ -1469,7 +1468,7 @@ class Listener(threading.Thread):
                 print "(2) have now %i incoming connections" % len(self.conns)
             except:
                 print "socket listener error!"
-                tb()
+                config.tb()
                 self.running = False
                     
 
@@ -1489,7 +1488,7 @@ def tryBindPort(interface, port):
         s.listen(5)
         return s
     except:
-        tb()
+        config.tb()
         return False
 
 def startPortableTor():
@@ -1576,7 +1575,7 @@ def startPortableTor():
         
     except:
         print "(1) an error occured while starting tor, see traceback:"
-        tb(1)
+        config.tb(1)
         
     print "(1) changing working directory back to %s" % old_dir
     os.chdir(old_dir)    
