@@ -17,8 +17,6 @@ HiddenServicePort 11009 127.0.0.1:11009
 DataDirectory tor_data
 
 AvoidDiskWrites 1
-TunnelDirConns 1
-PreferTunneledDirConns 1
 LongLivedPorts 11009
 
 ## the following is a dirty workaround for the 15 minutes problem:
