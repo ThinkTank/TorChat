@@ -27,7 +27,7 @@ LongLivedPorts 11009
 ## for a better solution.
 HiddenServiceNodes moria1,moria2,tor26
 
-## turning off SaveLogging will leave sensitive information on your disk
+## turning off SafeLogging will leave sensitive information on your disk
 ## the built in default is save logging turned on (set to 1).
 ## so don't remove the # from that line unless you need it
 ## and remember to put it in again, after you are done.
