@@ -9,6 +9,9 @@
 ## IMPORTANT: Don't change the FIRST 11009 in HiddenServicePort,
 ## this is the port INSIDE the tunnel. You must change the second one. 
 SocksPort 11109
+ControlPort 11119
+CookieAuthentication 1
+
 HiddenServiceDir hidden_service
 HiddenServicePort 11009 127.0.0.1:11009
 
