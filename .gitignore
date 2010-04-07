@@ -4,6 +4,7 @@
 # Tor's data
 Tor/hidden_service/
 Tor/tor_data/
+Tor/tor.pid
 
 # TorChat's data
 buddy-list.txt
