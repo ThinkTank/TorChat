@@ -1,0 +1,16 @@
+# Python bytecode files
+*.pyc
+
+# Tor's data
+Tor/hidden_service/
+Tor/tor_data/
+
+# TorChat's data
+buddy-list.txt
+config
+*_offline.txt
+torchat.ini
+
+# some sort of image cache thing
+wx
+tc_client
