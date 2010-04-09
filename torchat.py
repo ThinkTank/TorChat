@@ -20,14 +20,14 @@ import os
 import wx
 import tc_client
 import tc_gui
-        
+
 def main():
     #initialize the configuration
     config.main()
-    
+
     #create the mandatory wx application object
     app = wx.App(redirect=False)
-    
+
     #test for availability of our listening port
     interface = config.get("client", "listen_interface")
     port = config.getint("client", "listen_port")
@@ -40,8 +40,8 @@ def main():
         return
     else:
         print "(1) TorChat is listening on %s:%s" % (interface, port)
-    
-    #now continue with normal program startup 
+
+    #now continue with normal program startup
     print "(1) start initializing main window"
     app.mw = tc_gui.MainWindow(listen_socket)
     app.SetTopWindow(app.mw)

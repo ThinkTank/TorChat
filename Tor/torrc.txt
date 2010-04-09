@@ -7,7 +7,7 @@
 ## If you want to run multiple instances, change all the port numbers.
 ## Remember to change them in torchat.ini [tor_portable] and [client] too.
 ## IMPORTANT: Don't change the FIRST 11009 in HiddenServicePort,
-## this is the port INSIDE the tunnel. You must change the second one. 
+## this is the port INSIDE the tunnel. You must change the second one.
 SocksPort 11109
 ControlPort 11119
 CookieAuthentication 1

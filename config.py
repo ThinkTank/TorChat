@@ -67,8 +67,8 @@ def killProcess(pid):
     try:
         if isWindows():
             PROCESS_TERMINATE = 1
-            handle = ctypes.windll.kernel32.OpenProcess(PROCESS_TERMINATE, 
-                                                        False, 
+            handle = ctypes.windll.kernel32.OpenProcess(PROCESS_TERMINATE,
+                                                        False,
                                                         pid)
             print handle
             ctypes.windll.kernel32.TerminateProcess(handle, -1)
@@ -101,7 +101,7 @@ def isPortable():
         return True
     except:
         return False
-    
+
 def getDataDir():
     if isPortable():
         return getScriptDir()
@@ -115,17 +115,17 @@ def getDataDir():
         else:
             home = os.path.expanduser("~")
             data_dir = os.path.join(home, ".torchat")
-    
+
     #test for optional profile name in command line
     try:
         data_dir += "_" + sys.argv[1]
     except:
         pass
-    
+
     #create it if necessary
     if not os.path.exists(data_dir):
         os.mkdir(data_dir)
-        
+
     #and create the folder 'Tor' with tor.exe and torrc.txt in it if necessary
     data_dir_tor = os.path.join(data_dir, "Tor")
     if not os.path.exists(data_dir_tor):
@@ -136,7 +136,7 @@ def getDataDir():
             tor_exe = "tor.sh"
         shutil.copy(os.path.join("Tor", tor_exe), data_dir_tor)
         shutil.copy(os.path.join("Tor", "torrc.txt"), data_dir_tor)
-        
+
     return data_dir
 
 def getProfileLongName():
@@ -151,15 +151,15 @@ def readConfig():
     global config
     dir = getDataDir()
     if not os.path.isdir(dir):
-        os.mkdir(dir)        
+        os.mkdir(dir)
     file_name = dir + "/torchat.ini"
     config = ConfigParser.ConfigParser()
     config.read(file_name)
-    #try to read all known options once. This will add 
-    #all the missing options to the config file 
+    #try to read all known options once. This will add
+    #all the missing options to the config file
     for section, option in config_defaults:
         get(section, option)
-    
+
 def writeConfig():
     fp = open(file_name, "w")
     config.write(fp)
@@ -209,7 +209,7 @@ def getTranslators():
                 for person in ltrans:
                     new_entry = "%s (%s [%s])" % (person, lname, lcode)
                     if not new_entry in translators:
-                        translators.append(new_entry) 
+                        translators.append(new_entry)
             except:
                 pass
     return ", ".join(translators)
@@ -222,12 +222,12 @@ def importLanguage():
         #between incomplete translations.
         for key in standard_dict:
             translations.lang_en.__dict__[key] = standard_dict[key]
-            
+
     lang_xx = "lang_" + get("gui", "language")
     if lang_xx == "lang_en":
         #lang_en is the standard translation. nothing to replace.
         return
-    
+
     if not getScriptDir() in sys.path:
         #make sure that script dir is in sys.path (py2exe etc.)
         print "(1) putting script directory into module search path"
@@ -240,14 +240,14 @@ def importLanguage():
         dict_trans = __import__(lang_xx).__dict__
         print "(1) found custom language module %s.py" % lang_xx
     except:
-        #nothing found, so we try the built in translations 
+        #nothing found, so we try the built in translations
         if lang_xx in translations.__dict__:
             print "(1) found built in language module %s" % lang_xx
             dict_trans = translations.__dict__[lang_xx].__dict__
         else:
             print "(0) translation module %s not found"
             dict_trans = None
-            
+
     if dict_trans:
         #find missing translations and report them in the log
         for key in dict_std:
@@ -324,11 +324,11 @@ class LogWriter:
     def close(self):
         self.stdout.close()
         self.logfile.close()
-        
+
 def main():
     global standard_dict
     global log_writer
-    
+
     #many things are relative to the script directory, so set is as the cwd
     os.chdir(getScriptDir())
     readConfig()
@@ -336,12 +336,12 @@ def main():
 
     print "(1) script directory is %s" % getScriptDir()
     print "(1) data directory is %s" % getDataDir()
-    
+
     #make a backup of all strings that are in the standard language file
     #because we could need them when switching between incomplete languages
     standard_dict = {}
     for key in translations.lang_en.__dict__:
         standard_dict[key] = translations.lang_en.__dict__[key]
-    
+
     #now switch to the configured translation
     importLanguage()

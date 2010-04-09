@@ -11,8 +11,8 @@ import wx
 wx_path = wx.__path__[0]
 py_path = "c:\python25"
 
-app_name = "TorChat" 
-app_descr = "Messenger on top of the Tor-network" 
+app_name = "TorChat"
+app_descr = "Messenger on top of the Tor-network"
 app_version = version.VERSION
 app_company = "Bernd Kreuﬂ"
 app_copyright = "© 2007, 2008 Bernd Kreuﬂ"
@@ -61,7 +61,7 @@ setup(
         }
     },
     zipfile = None, # append zip-archive to the executable.
-    
+
     #console = [
     windows = [
         {
@@ -70,9 +70,9 @@ setup(
             'company_name': app_company,
             'copyright': app_copyright,
             'name': app_name,
-            
+
             'script': script_name,
-            
+
             'icon_resources': [(1, icon_name)],
             'other_resources': [(24,1,manifest % dict(name=app_name, descr=app_descr))]
         }

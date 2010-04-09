@@ -43,7 +43,7 @@ License, version 3, can be found in /usr/share/common-licenses/GPL-3.
 
 --
 
-The files in /usr/share/torchat/SocksiPy are 
+The files in /usr/share/torchat/SocksiPy are
 Copyright 2006 Dan-Haim. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -56,7 +56,7 @@ are permitted provided that the following conditions are met:
 3. Neither the name of Dan Haim nor the names of his contributors may be used
    to endorse or promote products derived from this software without specific
    prior written permission.
-   
+
 THIS SOFTWARE IS PROVIDED BY DAN HAIM "AS IS" AND ANY EXPRESS OR IMPLIED
 WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
@@ -70,7 +70,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMANGE.
 --
 
 The files in /usr/share/pixmaps/torchat are partially derived from
-the gajim buddy status icons (c) The Gajim Team (GNU-GPL) 
+the gajim buddy status icons (c) The Gajim Team (GNU-GPL)
 """
 
 dirs = ["DEBIAN",

@@ -40,19 +40,19 @@ version 0.9.9.149
 - show list of unread (hidden) windows in taskbar icon tooltip
 - ask before exiting when there are unread messages
 - show message with timestamp when delayed messages have been sent
- 
+
 version 0.9.9.140
-- incompatible protocol change! (adding and removing buddies)  
+- incompatible protocol change! (adding and removing buddies)
 - implemented offline messages
 - implemented logging
-- bugfix: possible race condition when opening 2 chat windows in a short time 
+- bugfix: possible race condition when opening 2 chat windows in a short time
 - bugfix: allow non-ascii characters in buddy name
 - bugfix: a buddy can now be removed from the list
 - bugfix: prevent possible DoS attack through faked "ping" messages
-- bugfix: wrong initialization of buddy list window didn't work on Mac 
+- bugfix: wrong initialization of buddy list window didn't work on Mac
 
 version 0.9.9.109
-- bugfix: if /tmp was on a separate partition, file receiving was broken   
+- bugfix: if /tmp was on a separate partition, file receiving was broken
 - bugfix: show correct buddy status immediately after connect
 - new connection attempts and keep-alives now in random intervals
 - implemented configuration file
@@ -63,7 +63,7 @@ version 0.9.9.98
 
 version 0.9.9.96
 - bugfix: fixes slow connection in 0.9.9.95
- 
+
 version 0.9.9.95
 - notification popups and flashing symbols in taskbar
 - file transfers can recover from connection breakdowns

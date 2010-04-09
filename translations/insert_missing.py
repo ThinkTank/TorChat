@@ -4,23 +4,23 @@ import os
 import sys
 
 msg = """This little script will insert the missing strings into
-all incomplete translation files. It will create backup 
+all incomplete translation files. It will create backup
 files with _ at the beginning.
 
-If for example lang_en.py has the definition 
+If for example lang_en.py has the definition
 
 FOO_BAR = u"foo bar"
 
-and that definition is missing in lang_de.py because 
-lang_de.py is older then it will insert the missing 
-definition into lang_de.py but it will be commented 
+and that definition is missing in lang_de.py because
+lang_de.py is older then it will insert the missing
+definition into lang_de.py but it will be commented
 out, so that you can better find it:
 
 # FOO_BAR = u"foo bar"
 
-As a translator you now just open your language file, 
-find all such missing translations, remove the # and 
-translate them. 
+As a translator you now just open your language file,
+find all such missing translations, remove the # and
+translate them.
 
 Continue? (y/n) """
 
@@ -40,12 +40,12 @@ def readFile(filename):
             lines1[last] = lines1[last] + "\n" + line
         else:
             lines1.append(line)
-            
+
         if line [-1:] == "\\":
             not_at_end = True
         else:
             not_at_end = False
-            
+
     lines2 = []
     #combine multiline strings literals with """
     in_string = False
@@ -55,19 +55,19 @@ def readFile(filename):
             lines2[last] = lines2[last] + "\n" + line
         else:
             lines2.append(line)
-        
+
         if ' = u"""' in line:
             in_string = True
-            
+
         if ' = """' in line:
             in_string = True
 
         #the closing """ must be at the end of the line
         if line[-3:] == '"""':
             in_string = False
-            
+
     return lines2
-        
+
 
 def updateTranslation(filename):
     print "*** updating %s" % filename
@@ -82,14 +82,14 @@ def updateTranslation(filename):
             if def_xx == def_en:
                 found = True
                 break
-            
+
             if def_xx == "# " + def_en or def_xx == "#" + def_en:
                 #also find already inserted and commented out definitions
                 found = True
                 break
-        
+
         if not found:
-            # no translation found, use the version 
+            # no translation found, use the version
             # from lang_en and insert a # before
             lang_xx_new.append("# " + line_en)
             print "inserting %s" % def_en
@@ -104,7 +104,7 @@ def updateTranslation(filename):
             f.write("\n".join(lang_xx_new))
             f.close
 
-#load the english reference file            
+#load the english reference file
 lang_en = readFile("lang_en.py")
 
 #update all files in current directory

@@ -127,13 +127,13 @@ ABOUT_TITLE = u"A TorChat-ról"
 ABOUT_TEXT = u"""TorChat %(version)s (svn: r%(svn)s)
   %(copyright)s
 
-Translations: 
+Translations:
   %(translators)s
 
 Runtime environment:
   Python: %(python)s
   wx: %(wx)s
-    
+
 TorChat is free software: you can redistribute it and/or \
 modify it under the terms of the GNU General Public \
 License as published by the Free Software Foundation, \
