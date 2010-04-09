@@ -28,8 +28,6 @@ import shutil
 import subprocess
 import tempfile
 import hashlib
-import traceback
-import inspect
 import config
 import version
 
