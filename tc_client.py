@@ -49,16 +49,6 @@ tor_pid = None
 tor_proc = None
 tor_timer = None
 
-def splitLine(text):
-    sp = text.split(" ")
-    try:
-        a = sp[0]
-        b = " ".join(sp[1:])
-    except:
-        a = text
-        b = ""
-    return a, b
-
 def escape(text):
     text = text.replace("\\", "\\/") #replace \ with \/
     text = text.replace("\n", "\\n")  #replace linebreak with \n
@@ -914,7 +904,7 @@ def ProtocolMsgFromLine(bl, conn, line):
     #ProtocolMsg subclass which can handle this kind of protocol message
     #and returns an instance. If no class matches the command string it
     #returns a ProtocolMsg instance which is generic and just does nothing.
-    command, text_escaped = splitLine(line)
+    command, text_escaped = line.split(" ", 1)
     #the rest of the message can be arbitrary (but escaped) data.
     #unescape it, so it is in it's original (maybe even binary) form.
     data = unescape(text_escaped)
@@ -939,7 +929,7 @@ class ProtocolMsg_ping(ProtocolMsg):
     def parse(self):
         #the sender address is in the text. we take it for granted
         #and see if we can find a buddy in our list with that address.
-        self.address, self.answer = splitLine(self.text)
+        self.address, self.answer = self.text.split(" ", 1)
         self.buddy = self.bl.getBuddyFromAddress(self.address)
 
     def execute(self):
@@ -1142,9 +1132,9 @@ class ProtocolMsg_filename(ProtocolMsg):
     command = "filename"
     #the first message in a file transfer, initiating the transfer.
     def parse(self):
-        self.id, text = splitLine(self.text)
-        file_size, text = splitLine(text)
-        block_size, self.file_name = splitLine(text)
+        self.id, text = self.text.split(" ", 1)
+        file_size, text = text.split(" ", 1)
+        block_size, self.file_name = text.split(" ", 1)
         self.file_size = int(file_size)
         self.block_size = int(block_size)
         self.file_name = self.file_name.decode("utf-8")
@@ -1174,9 +1164,9 @@ class ProtocolMsg_filedata(ProtocolMsg):
     #size. The data blocks are transmitted as they are and only
     #newline characters are escaped. (see escape() and unescape())
     def parse(self):
-        self.id, text = splitLine(self.text)
-        start, text = splitLine(text)
-        self.hash, self.data = splitLine(text)
+        self.id, text = self.text.split(" ", 1)
+        start, text = text.split(" ", 1)
+        self.hash, self.data = text.split(" ", 1)
         self.start = int(start)
 
     def execute(self):
@@ -1204,7 +1194,7 @@ class ProtocolMsg_filedata_ok(ProtocolMsg):
     #every received "filedata" must be confirmed with a "filedata_ok"
     #(or a "filedata_error")
     def parse(self):
-        self.id, start = splitLine(self.text)
+        self.id, start = self.text.split(" ", 1)
         self.start = int(start)
 
     def execute(self):
@@ -1227,7 +1217,7 @@ class ProtocolMsg_filedata_ok(ProtocolMsg):
 class ProtocolMsg_filedata_error(ProtocolMsg):
     command = "filedata_error"
     def parse(self):
-        self.id, start = splitLine(self.text)
+        self.id, start = self.text.split(" ", 1)
         self.start = int(start)
 
     def execute(self):
