@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import version
+import sys; sys.path.append("../"); import version
 import os
 
 def zipSource(zip_filename, zip_options):

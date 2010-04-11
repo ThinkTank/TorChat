@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import os
-import version
+import sys; sys.path.append("../"); import version
 
 TMP_ROOT = "debroot"
 

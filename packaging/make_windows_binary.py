@@ -5,7 +5,7 @@ import py2exe
 import sys
 import os
 import time
-import version
+sys.path.append("../"); import version
 import wx
 
 wx_path = wx.__path__[0]
