@@ -16,7 +16,7 @@ Architecture: all
 Essential: no
 Depends: tor, python2.5, python-wxgtk2.8
 Pre-Depends: python2.5
-Maintainer: Bernd Kreuss <prof7bit@cooglemail.com>
+Maintainer: Bernd Kreuss <prof7bit@googlemail.com>
 Provides: torchat
 Description: Instant Messenger for Tor
 """ % version
