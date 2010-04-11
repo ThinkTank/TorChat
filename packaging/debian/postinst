@@ -1,0 +1,10 @@
+#!/bin/sh
+
+cd /usr/share/torchat
+echo creating symbolic links...
+ln -s /usr/share/pixmaps/torchat icons
+
+echo compiling to bytecode...
+python -OOc "import torchat"
+
+echo TorChat installed.

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Categories=Network;InstantMessaging;
+Name=TorChat Instant Messenger
+Comment=Anonymous Instant Messenger for Tor
+Version=%s
+Exec=/usr/bin/torchat
+Path=/usr/share/torchat/
+Icon=/usr/share/pixmaps/torchat/torchat.png
+StartupNotify=true
+StartupWMClass=TorChat
+Terminal=false
+Type=Application
