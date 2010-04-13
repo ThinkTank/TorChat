@@ -22,6 +22,7 @@ import translations
 import socket
 import ctypes
 import shutil
+import logging as log
 
 
 config_defaults = {
@@ -70,13 +71,13 @@ def killProcess(pid):
             handle = ctypes.windll.kernel32.OpenProcess(PROCESS_TERMINATE,
                                                         False,
                                                         pid)
-            print handle
+            log.debug(handle)
             ctypes.windll.kernel32.TerminateProcess(handle, -1)
             ctypes.windll.kernel32.CloseHandle(handle)
         else:
             os.kill(pid, 15)
     except:
-        print "(1) could not kill process %i" % pid
+        log.info("could not kill process %i" % pid)
         tb()
 
 def getScriptDir():
@@ -195,7 +196,7 @@ def set(section, option, value):
     writeConfig()
 
 def tb(level=0):
-    print "(%i) ----- start traceback -----\n%s   ----- end traceback -----\n" % (level, traceback.format_exc())
+    log.level(level, "----- start traceback -----\n%s   ----- end traceback -----\n" % (traceback.format_exc()))
 
 def getTranslators():
     translators = []
@@ -230,112 +231,47 @@ def importLanguage():
 
     if not getScriptDir() in sys.path:
         #make sure that script dir is in sys.path (py2exe etc.)
-        print "(1) putting script directory into module search path"
+        log.info("putting script directory into module search path")
         sys.path.insert(0, getScriptDir())
 
     dict_std = translations.lang_en.__dict__
-    print "(1) trying to import language module %s" % lang_xx
+    log.info("trying to import language module %s" % lang_xx)
     try:
         #first we try to find a language module in the script dir
         dict_trans = __import__(lang_xx).__dict__
-        print "(1) found custom language module %s.py" % lang_xx
+        log.info("found custom language module %s.py" % lang_xx)
     except:
         #nothing found, so we try the built in translations
         if lang_xx in translations.__dict__:
-            print "(1) found built in language module %s" % lang_xx
+            log.info("found built in language module %s" % lang_xx)
             dict_trans = translations.__dict__[lang_xx].__dict__
         else:
-            print "(0) translation module %s not found"
+            log.debug("translation module %s not found")
             dict_trans = None
 
     if dict_trans:
         #find missing translations and report them in the log
         for key in dict_std:
             if not key in dict_trans:
-                print "(2) %s is missing translation for %s" % (lang_xx, key)
+                log.warn("(2) %s is missing translation for %s" % (lang_xx, key))
         #replace the bindings in lang_en with those from lang_xx
         for key in dict_trans:
             if not key in dict_std:
-                print "(2) unused %s in %s" % (key, lang_xx)
+                log.warn("unused %s in %s" % (key, lang_xx))
             else:
                 dict_std[key] = dict_trans[key]
 
-
-class LogWriter:
-    def __init__(self):
-        old_dir = os.getcwd()
-        os.chdir(getDataDir())
-
-        #if log_file is a relative path then let it be relative to DataDir()
-        self.file_name = os.path.abspath(get("logging", "log_file"))
-        os.chdir(old_dir)
-        self.stdout = sys.stdout
-        sys.stdout = self
-        sys.stderr = self
-        self.level = getint("logging", "log_level")
-        if  self.level and get("logging", "log_file"):
-            try:
-                self.logfile = open(self.file_name, 'w')
-                print "(1) started logging to file '%s'" % self.file_name
-            except:
-                print "(0) could not open logfile '%s'" % self.file_name
-                print "(0) logging only to stdout"
-        print "(1) current log level is %i" % self.level
-        print "(1) LogWriter initialized"
-
-    def write(self, text):
-        text = text.rstrip()
-        if text == "":        #dict is the __dict__ of the standard lang module
-        #dict_trans is the __dict__ of the translation
-
-            return
-        text += "\n"
-        try:
-            x = text[0]
-            y = text[2]
-            if x == "(" and y == ")":
-                level = int(text[1])
-            else:
-                text = "(0) " + text
-                level = 0
-        except:
-            text = "(0) " + text
-            level = 0
-
-        if level <= self.level:
-            try:
-                frame = inspect.getframeinfo(inspect.currentframe(1))
-                module = os.path.basename(frame[0])
-                module = module.split(".")[0]
-                line = frame[1]
-                func = frame[2]
-                pos = "[%s,%i,%s]" % (module, line, func)
-                text = text[0:4] + pos + text[3:]
-            except:
-                pass
-            self.stdout.write(text.encode("ascii", "replace"))
-            self.stdout.flush()
-            try:
-                self.logfile.write(text.encode("ascii", "replace"))
-                self.logfile.flush()
-            except:
-                pass
-
-    def close(self):
-        self.stdout.close()
-        self.logfile.close()
-
 def main():
     global standard_dict
-    global log_writer
+    
+    log.basicConfig(filename=get('logging', 'log_file'), level=get('logging', 'log_level')
 
     #many things are relative to the script directory, so set is as the cwd
     os.chdir(getScriptDir())
     readConfig()
-    log_writer = LogWriter()
-
-    print "(1) script directory is %s" % getScriptDir()
-    print "(1) data directory is %s" % getDataDir()
+    
+    log.info("script directory is %s" % getScriptDir())
+    log.info("data directory is %s" % getDataDir())
 
     #make a backup of all strings that are in the standard language file
     #because we could need them when switching between incomplete languages

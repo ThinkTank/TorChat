@@ -17,6 +17,7 @@
 # this is a graphical User interface for the TorChat client library.
 
 import config
+import logging as log
 import wx
 import tc_client
 import sys
@@ -947,7 +948,7 @@ class FileDropTarget(wx.FileDropTarget):
                 return
         # --- end evel hack
 
-        print "(2) file dropped: %s" % file_name
+        log.warn("file dropped: %s" % file_name)
 
         if not self.window.buddy.conn_in:
             wx.MessageBox(lang.D_WARN_BUDDY_OFFLINE_MESSAGE,
@@ -1143,7 +1144,7 @@ class MainWindow(wx.Frame):
             self.Show()
 
         if config.get("logging", "log_file") and config.getint("logging", "log_level"):
-            print "(0) logging to file may leave sensitive information on disk"
+            log.debug("logging to file may leave sensitive information on disk")
             wx.MessageBox(lang.D_LOG_WARNING_MESSAGE % config.log_writer.file_name,
                           lang.D_LOG_WARNING_TITLE,
                           wx.ICON_WARNING)
