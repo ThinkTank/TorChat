@@ -23,16 +23,6 @@ import socket
 import ctypes
 import shutil
 
-DEFAULTS_LOC = 'defaults.json'
-CONFIG_LOC = 'config.json'
-
-global config, defaults
-
-defaults = json.load( open(DEFAULTS_LOC) )
-if os.path.exists(CONFIG_LOC):
-	config = json.load( open(CONFIG_LOC) )
-else:
-	config = {}
 
 def isWindows():
     return sys.platform.startswith("win")
@@ -281,6 +271,17 @@ class LogWriter:
     def close(self):
         self.stdout.close()
         self.logfile.close()
+
+DEFAULTS_LOC = os.path.join( getDataDir(), 'defaults.json' )
+CONFIG_LOC = os.path.join( getDataDir(), 'config.json' )
+
+global config, defaults
+
+defaults = json.load( open(DEFAULTS_LOC) )
+if os.path.exists(CONFIG_LOC):
+	config = json.load( open( CONFIG_LOC) )
+else:
+	config = {}
 
 def main():
     global standard_dict
