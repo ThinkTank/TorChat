@@ -29,5 +29,12 @@
     "tor_server": "127.0.0.1", 
     "tor_server_control_port": 11119, 
     "tor_server_socks_port": 11109
+  },
+  "internal": {
+    "icon_dir": "icons/",
+    "authors_id": "utvrla6mjdypbyw6",
+    "authors_name": "Bernd",
+    "copyright": "Copyright (c) 2007, 2008 Bernd Kreuß <prof7bit@gmail.com>",
+    "dead_connection_timeout": 180
   }
 }

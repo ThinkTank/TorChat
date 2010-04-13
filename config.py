@@ -34,14 +34,6 @@ if os.path.exists(CONFIG_LOC):
 else:
 	config = {}
 
-ICON_DIR = "icons" #can be absolute or relative to script dir
-
-AUTHORS_ID = "utvrla6mjdypbyw6"
-AUTHORS_NAME = "Bernd"
-COPYRIGHT = u"Copyright (c) 2007, 2008 Bernd Kreuß <prof7bit@gmail.com>"
-
-DEAD_CONNECTION_TIMEOUT = 180
-
 def isWindows():
     return sys.platform.startswith("win")
 
