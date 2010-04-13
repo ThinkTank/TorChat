@@ -1,5 +1,6 @@
 # Python bytecode files
 *.pyc
+*.pye
 
 # Tor's data
 Tor/hidden_service/
