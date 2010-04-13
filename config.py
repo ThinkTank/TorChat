@@ -15,7 +15,7 @@
 ##############################################################################
 
 import sys, os
-import ConfigParser
+import json
 import traceback
 import inspect
 import translations
@@ -23,28 +23,16 @@ import socket
 import ctypes
 import shutil
 
+DEFAULTS_LOC = 'defaults.json'
+CONFIG_LOC = 'config.json'
 
-config_defaults = {
-    ("tor", "tor_server") : "127.0.0.1",
-    ("tor", "tor_server_socks_port") : 9050,
-    ("tor", "tor_server_control_port") : 9051,
-    ("tor_portable", "tor_server") : "127.0.0.1",
-    ("tor_portable", "tor_server_socks_port") : 11109,
-    ("tor_portable", "tor_server_control_port") : 11119,
-    ("client", "own_hostname") : "0000000000000000",
-    ("client", "listen_interface") : "127.0.0.1",
-    ("client", "listen_port") : 11009,
-    ("logging", "log_file") : "",
-    ("logging", "log_level") : 0,
-    ("files", "temp_files_in_data_dir") : 1,
-    ("files", "temp_files_custom_dir") : "",
-    ("gui", "language") : "en",
-    ("gui", "notification_popup") : 1,
-    ("gui", "notification_flash_window") : 1,
-    ("gui", "open_main_window_hidden") : 0,
-    ("gui", "open_chat_window_hidden") : 0,
-    ("gui", "time_stamp_format") : "(%H:%M:%S)",
-}
+global config, defaults
+
+defaults = json.load( open(DEFAULTS_LOC) )
+if os.path.exists(CONFIG_LOC):
+	config = json.load( open(CONFIG_LOC) )
+else:
+	config = {}
 
 ICON_DIR = "icons" #can be absolute or relative to script dir
 
@@ -145,54 +133,31 @@ def getProfileLongName():
     except:
         return get("client", "own_hostname")
 
-
-def readConfig():
-    global file_name
-    global config
-    dir = getDataDir()
-    if not os.path.isdir(dir):
-        os.mkdir(dir)
-    file_name = dir + "/torchat.ini"
-    config = ConfigParser.ConfigParser()
-    config.read(file_name)
-    #try to read all known options once. This will add
-    #all the missing options to the config file
-    for section, option in config_defaults:
-        get(section, option)
-
 def writeConfig():
-    fp = open(file_name, "w")
-    config.write(fp)
-    fp.close()
+    json.dump(config, open(CONFIG_LOC, 'w'), indent=2, sort_keys=True)
 
 def get(section, option):
-    if not config.has_section(section):
-        config.add_section(section)
-    if not config.has_option(section, option):
-        value = config_defaults[section, option]
-        set(section, option, value)
-    value = str(config.get(section, option, True))
-    value = value.rstrip(" \"'").lstrip(" \"'")
-    return value
+	for d in (config, defaults):
+		if d.has_key(section) and d[section].has_key(option):
+			return d[section][option]
+
+	raise Exception, "We don't seem to have that option."
 
 def getint(section, option):
-    value = get(section, option).lower()
-    if value in ["yes", "on", "true"]:
-        return 1
-    if value in ["no", "off", "false"]:
-        return 0
     try:
         return int(value)
     except:
         return 0
 
 def set(section, option, value):
-    if not config.has_section(section):
-        config.add_section(section)
-    if type(value) == bool:
-        value = int(value)
-    config.set(section, option, value)
-    writeConfig()
+	if type(value) == bool: value = int(value)
+	
+	if config.has_key(section):
+		config[section][option] = value
+	else:
+		config[section] = {option: value}
+
+	writeConfig()
 
 def tb(level=0):
     print "(%i) ----- start traceback -----\n%s   ----- end traceback -----\n" % (level, traceback.format_exc())
@@ -331,7 +296,6 @@ def main():
 
     #many things are relative to the script directory, so set is as the cwd
     os.chdir(getScriptDir())
-    readConfig()
     log_writer = LogWriter()
 
     print "(1) script directory is %s" % getScriptDir()

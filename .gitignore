@@ -10,7 +10,7 @@ Tor/tor.pid
 buddy-list.txt
 config
 *_offline.txt
-torchat.ini
+config.json
 
 # some sort of image cache thing
 wx
