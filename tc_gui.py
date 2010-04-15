@@ -311,7 +311,7 @@ class PopupMenu(wx.Menu):
     def onSendFile(self, evt):
         buddy = self.mw.gui_bl.getSelectedBuddy()
         title = lang.DFT_FILE_OPEN_TITLE % buddy.getAddressAndDisplayName()
-        dialog = wx.FileDialog(self.mw, title, style=wx.OPEN)
+        dialog = wx.FileDialog(self.mw, title, style=wx.OPEN|wx.FD_PREVIEW)
         if dialog.ShowModal() == wx.ID_OK:
             file_name = dialog.GetPath()
             transfer_window = FileTransferWindow(self.mw, buddy, file_name)
@@ -907,7 +907,7 @@ class ChatWindow(wx.Frame):
 
     def onSendFile(self, evt):
         title = lang.DFT_FILE_OPEN_TITLE % self.buddy.getAddressAndDisplayName()
-        dialog = wx.FileDialog(self, title, style=wx.OPEN)
+        dialog = wx.FileDialog(self, title, style=wx.OPEN|wx.FD_PREVIEW)
         if dialog.ShowModal() == wx.ID_OK:
             file_name = dialog.GetPath()
             transfer_window = FileTransferWindow(self.mw, self.buddy, file_name)
