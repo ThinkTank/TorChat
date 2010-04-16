@@ -50,6 +50,10 @@ def main():
     app.MainLoop()
 
 if __name__ == "__main__":
+    import sys
+    if sys.version_info[0:2] != (2, 6):
+        exit("TorChat requires Python version 2.6.")
+
     try:
         main()
     except KeyboardInterrupt:
