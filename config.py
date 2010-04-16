@@ -272,7 +272,7 @@ class LogWriter:
         self.stdout.close()
         self.logfile.close()
 
-DEFAULTS_LOC = os.path.join( getDataDir(), 'defaults.json' )
+DEFAULTS_LOC = os.path.join( os.path.realpath(os.curdir), 'defaults.json')
 CONFIG_LOC = os.path.join( getDataDir(), 'config.json' )
 
 global config, defaults
