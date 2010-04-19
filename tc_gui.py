@@ -41,7 +41,7 @@ _icon_images = {} #this is a cache for getStatusBitmap()
 def getStatusBitmap(status):
     global _icon_images
     if not status in _icon_images:
-        image = wx.Image(os.path.join(config.ICON_DIR, ICON_NAMES[status]), wx.BITMAP_TYPE_PNG)
+        image = wx.Image(os.path.join(config.get("internal", "icon_dir"), ICON_NAMES[status]), wx.BITMAP_TYPE_PNG)
         image.ConvertAlphaToMask()
         _icon_images[status] = image
     bitmap = _icon_images[status].ConvertToBitmap()
@@ -61,7 +61,7 @@ class TaskbarIcon(wx.TaskBarIcon):
         try:
             icon = wx.IconFromBitmap(self.img_event.ConvertToBitmap())
         except:
-            img = wx.Image(os.path.join(config.ICON_DIR, "event.png"))
+            img = wx.Image(os.path.join(config.get("internal", "icon_dir"), "event.png"))
             img.ConvertAlphaToMask()
             self.img_event = img
             icon = wx.IconFromBitmap(self.img_event.ConvertToBitmap())
@@ -221,7 +221,7 @@ class NotificationWindow(wx.PopupWindow):
         sizer = wx.BoxSizer()
         self.panel.SetSizer(sizer)
 
-        bitmap = wx.Bitmap(config.ICON_DIR + "/torchat.png", wx.BITMAP_TYPE_PNG)
+        bitmap = wx.Bitmap(config.get("internal", "icon_dir") + "/torchat.png", wx.BITMAP_TYPE_PNG)
         static_image = wx.StaticBitmap(self.panel, -1, bitmap)
         sizer.Add(static_image, 0, wx.ALL, 5 )
 
@@ -282,7 +282,7 @@ class PopupMenu(wx.Menu):
 
         #ask bernd
 
-        item = wx.MenuItem(self, wx.NewId(), lang.MPOP_ASK_AUTHOR % config.AUTHORS_NAME)
+        item = wx.MenuItem(self, wx.NewId(), lang.MPOP_ASK_AUTHOR % config.get("internal", "authors_name"))
         self.AppendItem(item)
         self.Bind(wx.EVT_MENU, self.onAskAuthor, item)
 
@@ -361,15 +361,15 @@ class PopupMenu(wx.Menu):
     def onAbout(self, evt):
         wx.MessageBox(lang.ABOUT_TEXT % {"version":version.VERSION,
                                          "svn":version.VERSION_SVN,
-                                         "copyright":config.COPYRIGHT,
+                                         "copyright":config.get("internal", "copyright"),
                                          "python":".".join(str(x) for x in sys.version_info),
                                          "wx":wx.version(),
                                          "translators":config.getTranslators()},
                       lang.ABOUT_TITLE)
 
     def onAskAuthor(self, evt):
-        if self.mw.buddy_list.getBuddyFromAddress(config.AUTHORS_ID):
-            wx.MessageBox(lang.DEC_MSG_ALREADY_ON_LIST % config.AUTHORS_NAME)
+        if self.mw.buddy_list.getBuddyFromAddress(config.get("internal", "authors_id")):
+            wx.MessageBox(lang.DEC_MSG_ALREADY_ON_LIST % config.get("internal", "authors_name"))
         else:
             dialog = DlgEditContact(self.mw, self.mw, add_author=True)
             dialog.ShowModal()
@@ -429,8 +429,8 @@ class DlgEditContact(wx.Dialog):
             sizer.Add(self.txt_intro, (row, 1), (1, 2))
 
         if add_author:
-            self.txt_address.SetValue(config.AUTHORS_ID)
-            self.txt_name.SetValue(config.AUTHORS_NAME)
+            self.txt_address.SetValue(config.get("internal", "authors_id"))
+            self.txt_name.SetValue(config.get("internal", "authors_name"))
 
         #buttons
         row += 1
@@ -509,7 +509,7 @@ class BuddyList(wx.ListCtrl):
                        tc_client.STATUS_XA]:
             self.il_idx[status] = self.il.Add(getStatusBitmap(status))
 
-        img_event = wx.Image(os.path.join(config.ICON_DIR, "event.png"))
+        img_event = wx.Image(os.path.join(config.get("internal", "icon_dir"), "event.png"))
         img_event.ConvertAlphaToMask()
         self.il_idx[100] = self.il.Add(img_event.ConvertToBitmap())
 
@@ -1135,7 +1135,7 @@ class MainWindow(wx.Frame):
         self.main_panel.SetSizer(sizer)
         sizer.FitInside(self)
 
-        icon = wx.Icon(name=os.path.join(config.ICON_DIR, "torchat.ico"),
+        icon = wx.Icon(name=os.path.join(config.get("internal", "icon_dir"), "torchat.ico"),
                        type=wx.BITMAP_TYPE_ICO)
         self.SetIcon(icon)
 

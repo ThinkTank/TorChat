@@ -272,7 +272,7 @@ class Buddy(object):
         self.keepAlive()
 
         if self.status != STATUS_OFFLINE and \
-            time.time() - self.last_status_time > config.DEAD_CONNECTION_TIMEOUT:
+            time.time() - self.last_status_time > config.get("internal", "dead_connection_timeout"):
             #long time without status is indicating a broken link
             #disconnect to give it a chance to reconnect
             print "(2) %s reveived no status update for a long time. disconnecting" % self.address
@@ -1322,7 +1322,7 @@ class InConnection:
         self.socket = socket
         self.receiver = Receiver(self)
         self.last_ping_address = "" #used to detect mass pings with fake adresses
-        self.timer = threading.Timer(config.DEAD_CONNECTION_TIMEOUT, self.onTimeout)
+        self.timer = threading.Timer(config.get("internal", "dead_connection_timeout"), self.onTimeout)
         self.started = True
         self.timer.start()
 
@@ -1359,7 +1359,7 @@ class InConnection:
     def onTimeout(self):
         #if after this long time the connection is still unused, close it.
         if self.buddy and self.buddy.conn_in == self:
-            self.timer = threading.Timer(config.DEAD_CONNECTION_TIMEOUT, self.onTimeout)
+            self.timer = threading.Timer(config.get("internal", "dead_connection_timeout"), self.onTimeout)
             self.timer.start()
         else:
             print "(2) closing unused in-connection (%s, %s)" % (self.last_ping_address, self)
