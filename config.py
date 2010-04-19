@@ -122,7 +122,9 @@ def writeConfig():
 def get(section, option):
 	for d in (config, defaults):
 		if d.has_key(section) and d[section].has_key(option):
-			return d[section][option]
+			return str(d[section][option])	# It would be much cleaner to have string
+																			# conversions only when needed instead of
+																			# having this get()/getint() dichotomy.
 
 	raise Exception, "We don't seem to have that option."
 
