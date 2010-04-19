@@ -251,7 +251,7 @@ class Buddy(object):
                     t = random.randrange(30000, 60000) / 1000.0
                 else:
                     t = random.randrange(300000, 600000) / 1000.0
-           log.warn("%s had %i failed connections. Setting timer to %f seconds" \
+            log.warn("%s had %i failed connections. Setting timer to %f seconds" \
                 % (self.address, self.count_failed_connects, t))
         else:
             #whenever we are connected to someone we use a fixed timer.

@@ -264,7 +264,7 @@ def importLanguage():
 def main():
     global standard_dict
     
-    log.basicConfig(filename=get('logging', 'log_file'), level=get('logging', 'log_level')
+    log.basicConfig(filename=get('logging', 'log_file'), level=get('logging', 'log_level'))
 
     #many things are relative to the script directory, so set is as the cwd
     os.chdir(getScriptDir())
