@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 ##############################################################################
 #                                                                            #
 # Copyright (c) 2007-2008 Bernd Kreuss <prof7bit@gmail.com>                  #
@@ -25,7 +27,9 @@ def wrap(text):
         text = textwrap.fill(text, 20)
     return text
 
+
 class Panel(wx.Panel):
+
     def __init__(self, parent):
         wx.Panel.__init__(self, parent, wx.ID_ANY)
         self.parent = parent
@@ -41,7 +45,14 @@ class Panel(wx.Panel):
         self.grid_sizer.AddGrowableCol(1)
         self.grid_sizer.SetMinSize((300, -1))
 
-    def addItem(self, item, offset_x=0, span=(1,1), flags=0, new_line=False):
+    def addItem(
+        self,
+        item,
+        offset_x=0,
+        span=(1, 1),
+        flags=0,
+        new_line=False,
+        ):
         x = self.px + offset_x
         y = self.py
         self.grid_sizer.Add(item, (y, x), span, flags)
@@ -49,7 +60,8 @@ class Panel(wx.Panel):
             self.py += 1
 
     def addSeparatorItem(self, sep):
-        self.grid_sizer.Add(sep.hbox, (self.py, self.px), (1, 2), wx.EXPAND)
+        self.grid_sizer.Add(sep.hbox, (self.py, self.px), (1, 2),
+                            wx.EXPAND)
         self.last_separator = sep
 
     def registerControl(self, control):
@@ -71,13 +83,20 @@ class Panel(wx.Panel):
 
 
 class Control(object):
-    def __init__(self, panel, label, default):
+
+    def __init__(
+        self,
+        panel,
+        label,
+        default,
+        ):
         self.panel = panel
         self.label = label
         self.from_config = False
         self.default = self.getDefault(default)
         if self.label:
-            self.wx_label = wx.StaticText(self.panel, wx.ID_ANY, wrap(self.label))
+            self.wx_label = wx.StaticText(self.panel, wx.ID_ANY,
+                    wrap(self.label))
         self.wx_ctrl = None
         self.panel.registerControl(self)
 
@@ -103,14 +122,22 @@ class Control(object):
 
     def save(self):
         if self.from_config:
-            config.set(self.config_section, self.config_option, self.getValue())
+            config.set(self.config_section, self.config_option,
+                       self.getValue())
 
     def readConfig(self, section, option):
         return config.get(section, option)
 
 
 class Text(Control):
-    def __init__(self, panel, label, default, expand=False):
+
+    def __init__(
+        self,
+        panel,
+        label,
+        default,
+        expand=False,
+        ):
         Control.__init__(self, panel, label, default)
         self.wx_ctrl = wx.TextCtrl(self.panel, wx.ID_ANY, self.default)
         box = wx.BoxSizer(wx.VERTICAL)
@@ -123,14 +150,21 @@ class Text(Control):
 
 
 class Dir(Control):
-    def __init__(self, panel, label, default, width=0):
+
+    def __init__(
+        self,
+        panel,
+        label,
+        default,
+        width=0,
+        ):
         Control.__init__(self, panel, label, default)
         box = wx.BoxSizer(wx.HORIZONTAL)
         self.wx_ctrl
         self.wx_ctrl = wx.TextCtrl(self.panel, wx.ID_ANY, self.default)
         box.Add(self.wx_ctrl, 1, wx.EXPAND)
-        self.button = wx.Button(self.panel, wx.ID_ANY, "...")
-        size_btn = self.wx_ctrl.GetSize()[1] #the height
+        self.button = wx.Button(self.panel, wx.ID_ANY, '...')
+        size_btn = self.wx_ctrl.GetSize()[1]  # the height
         self.button.SetSizeHints(size_btn, size_btn)
         box.Add(self.button, 0)
         box1 = wx.BoxSizer(wx.VERTICAL)
@@ -152,27 +186,38 @@ class Dir(Control):
 
 
 class Check(Control):
-    def __init__(self, panel, label, default):
+
+    def __init__(
+        self,
+        panel,
+        label,
+        default,
+        ):
         Control.__init__(self, panel, None, default)
         self.wx_ctrl = wx.CheckBox(self.panel, wx.ID_ANY)
         self.wx_ctrl.SetValue(bool(self.default))
         self.wx_ctrl.SetLabel(label)
-        self.panel.addItem(self.wx_ctrl, 0, span=(1, 2), flags=wx.EXPAND, new_line=True)
+        self.panel.addItem(self.wx_ctrl, 0, span=(1, 2),
+                           flags=wx.EXPAND, new_line=True)
 
     def readConfig(self, section, option):
         return config.getint(section, option)
 
 
 class Separator(Control):
+
     def __init__(self, panel, label):
-        #completely different constructor
+
+        # completely different constructor
+
         self.panel = panel
         self.hbox = wx.BoxSizer(wx.HORIZONTAL)
 
         self.wx_label = wx.StaticText(self.panel, wx.ID_ANY, label)
         self.hbox.Add(self.wx_label, 0, wx.EXPAND | wx.TOP, 5)
 
-        #line must be in a box sizer or it will expand vertically
+        # line must be in a box sizer or it will expand vertically
+
         sepbox = wx.BoxSizer(wx.VERTICAL)
         self.wx_ctrl = wx.StaticLine(self.panel, wx.ID_ANY)
         sepbox.Add(self.wx_ctrl, 0, wx.EXPAND | wx.TOP, 15)
@@ -181,15 +226,19 @@ class Separator(Control):
         self.panel.addSeparatorItem(self)
         self.panel.newLine()
 
-        #make the label bold
+        # make the label bold
+
         font = self.wx_label.GetFont()
         font.SetWeight(wx.BOLD)
         self.wx_label.SetFont(font)
 
-        #an array of controls below this separator
+        # an array of controls below this separator
+
         self.controls = []
 
     def setEnabled(self, enabled):
         Control.setEnabled(self, enabled)
         for control in self.controls:
             control.setEnabled(enabled)
+
+

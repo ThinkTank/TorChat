@@ -1,4 +1,5 @@
-# -*- coding: UTF-8 -*-
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 ##############################################################################
 #                                                                            #
@@ -8,124 +9,171 @@
 #                                                                            #
 ##############################################################################
 
-LANGUAGE_CODE = u"de"
-LANGUAGE_NAME = u"Deutsch"
-LANGUAGE_NAME_ENGLISH = u"German"
+LANGUAGE_CODE = u'de'
+LANGUAGE_NAME = u'Deutsch'
+LANGUAGE_NAME_ENGLISH = u'German'
 TRANSLATOR_NAMES = [u"Bernd Kreuß"]
 
-#buttons
-BTN_CANCEL = u"Abbrechen"
-BTN_OK = u"Ok"
-BTN_SAVE_AS = u"Speichern unter..."
+# buttons
+
+BTN_CANCEL = u'Abbrechen'
+BTN_OK = u'Ok'
+BTN_SAVE_AS = u'Speichern unter...'
 BTN_CLOSE = u"Schließen"
 
-#status
+# status
+
 ST_AVAILABLE = u"Verfügbar"
-ST_AWAY = u"Abwesend"
+ST_AWAY = u'Abwesend'
 ST_EXTENDED_AWAY = u"Nicht verfügbar"
-ST_OFFLINE = u"Offine"
+ST_OFFLINE = u'Offine'
 
-#TaskbarMenu
-MTB_SHOW_HIDE_TORCHAT = u"TorChat anzeigen/verstecken"
-MTB_QUIT = u"Beenden"
+# TaskbarMenu
 
-#popup menu
-MPOP_CHAT = u"Nachricht schreiben..."
-MPOP_SEND_FILE = u"Datei senden..."
-MPOP_EDIT_CONTACT = u"Kontakt bearbeiten..."
+MTB_SHOW_HIDE_TORCHAT = u'TorChat anzeigen/verstecken'
+MTB_QUIT = u'Beenden'
+
+# popup menu
+
+MPOP_CHAT = u'Nachricht schreiben...'
+MPOP_SEND_FILE = u'Datei senden...'
+MPOP_EDIT_CONTACT = u'Kontakt bearbeiten...'
 MPOP_DELETE_CONTACT = u"Kontakt löschen..."
-MPOP_SHOW_OFFLINE_MESSAGES = u"Nachrichten in Warteschlange anzeigen"
+MPOP_SHOW_OFFLINE_MESSAGES = u'Nachrichten in Warteschlange anzeigen'
 MPOP_CLEAR_OFFLINE_MESSAGES = u"Nachrichten in Warteschlange löschen"
 MPOP_ADD_CONTACT = u"Kontakt hinzufügen..."
 MPOP_ABOUT = u"Über TorChat"
-MPOP_ASK_AUTHOR = u"%s fragen..."
-MPOP_SETTINGS = u"Einstellungen..."
+MPOP_ASK_AUTHOR = u'%s fragen...'
+MPOP_SETTINGS = u'Einstellungen...'
 
-# #chat window popup menu
-CPOP_COPY = u"Kopieren"
+##chat window popup menu
 
-#confirm delete message box
+CPOP_COPY = u'Kopieren'
+
+# confirm delete message box
+
 D_CONFIRM_DELETE_TITLE = u"Löschen bestätigen"
-D_CONFIRM_DELETE_MESSAGE = u"Soll dieser Kontakt wirklich gelöscht werden?\n(%s %s)"
+D_CONFIRM_DELETE_MESSAGE = \
+    u"Soll dieser Kontakt wirklich gelöscht werden?\n(%s %s)"
 
-#warning about log
-D_LOG_WARNING_TITLE = u"TorChat: Logging ist aktiviert"
-D_LOG_WARNING_MESSAGE = u"Logging in Datei ist aktiviert!\n\nLogdatei: %s\n\nVergessen Sie nicht, die Logdatei nach Beendingung der Fehlersuche wieder zu löschen, da diese Datei vertrauliche Informationen enthalten könnte."
+# warning about log
 
-# #warning about used port
-D_WARN_USED_PORT_TITLE = u"TorChat: Port ist bereits belegt"
-D_WARN_USED_PORT_MESSAGE = u"Eine Anwendung, wahrscheinlich eine andere TorChat-Instanz, verwendet bereits den Port %s:%s. Sie müssen andere Profile mit anderen Ports verwenden, um TorChat mehrmals starten zu können."
+D_LOG_WARNING_TITLE = u'TorChat: Logging ist aktiviert'
+D_LOG_WARNING_MESSAGE = \
+    u"""Logging in Datei ist aktiviert!
 
-#warnig about unread messages
-D_WARN_UNREAD_TITLE = u"TorChat: Ungelesene Nachrichten"
-D_WARN_UNREAD_MESSAGE = u"Es liegen noch ungelesene Nachrichten vor. Diese würden unwiderruflich verloren gehen!\n\nMöchten sie TorChat dennoch jetzt beenden?"
+Logdatei: %s
 
-#warning about offline buddy
-D_WARN_BUDDY_OFFLINE_TITLE = u"TorChat: Buddy ist offline"
-D_WARN_BUDDY_OFFLINE_MESSAGE = u"Diese Operation ist nicht möglich mit Offline-Buddies"
+Vergessen Sie nicht, die Logdatei nach Beendingung der Fehlersuche wieder zu löschen, da diese Datei vertrauliche Informationen enthalten könnte."""
 
-#warning about multiple files
-D_WARN_FILE_ONLY_ONE_TITLE = u"TorChat: Mehrere Dateien"
-D_WARN_FILE_ONLY_ONE_MESSAGE = u"Sie können nicht mit einer Operation mehrere Dateitransfers gleichzeitig auslösen. Starten Sie die Transfers einzeln, oder senden Sie eine Zip-Datei."
+##warning about used port
 
-# #warning about file save error
-D_WARN_FILE_SAVE_ERROR_TITLE = u"TorChat: Fehler beim Anlegen der Datei"
-D_WARN_FILE_SAVE_ERROR_MESSAGE = u"Die Datei '%s' konnte nicht erzeugt werden.\n\n%s"
+D_WARN_USED_PORT_TITLE = u'TorChat: Port ist bereits belegt'
+D_WARN_USED_PORT_MESSAGE = \
+    u"Eine Anwendung, wahrscheinlich eine andere TorChat-Instanz, verwendet bereits den Port %s:%s. Sie müssen andere Profile mit anderen Ports verwenden, um TorChat mehrmals starten zu können."
 
-# #warning about file already exists
-D_WARN_FILE_ALREADY_EXISTS_TITLE = u"TorChat: Datei existiert bereits"
-D_WARN_FILE_ALREADY_EXISTS_MESSAGE = u"Die Datei '%s' existiert bereits.\nÜberschreiben?"
+# warnig about unread messages
 
-#dialog: add/edit contact
-DEC_TITLE_ADD = u"Neuen Kontakt anlegen"
-DEC_TITLE_EDIT = u"Kontakt bearbeiten"
-DEC_TORCHAT_ID = u"TorChat ID"
-DEC_DISPLAY_NAME = u"Angezeigter Name"
-DEC_INTRODUCTION = u"Kurze Vorstellung"
-DEC_MSG_16_CHARACTERS = u"Die Adresse muss genau 16 Zeichen lang sein, nicht %i."
-DEC_MSG_ONLY_ALPANUM = u"Die Adresse kann nur as Ziffern und Kleinbuchstaben ohne Umlaute bestehen"
-DEC_MSG_ALREADY_ON_LIST = u"%s ist bereits auf Ihrer Liste"
+D_WARN_UNREAD_TITLE = u'TorChat: Ungelesene Nachrichten'
+D_WARN_UNREAD_MESSAGE = \
+    u"""Es liegen noch ungelesene Nachrichten vor. Diese würden unwiderruflich verloren gehen!
 
-#file transfer window
-DFT_FILE_OPEN_TITLE = u"Sende Datei an %s"
-DFT_FILE_SAVE_TITLE = u"Speichere Datei von %s"
-DFT_SEND = u"Sende %s\nan %s\n%04.1f%% (%i von %i Bytes)"
-DFT_RECEIVE = u"Empfange %s\nvon %s\n%04.1f%% (%i von %i Bytes)"
+Möchten sie TorChat dennoch jetzt beenden?"""
 
-#settings dialaog
-DSET_TITLE = u"TorChat Konfiguration"
-DSET_NET_TITLE = u"Netzwerk"
-DSET_NET_ACTIVE = u"aktiv"
-DSET_NET_INACTIVE = u"inaktiv"
-DSET_NET_TOR_ADDRESS = u"Tor-Proxy Addresse"
-DSET_NET_TOR_SOCKS = u"Socks Port"
-DSET_NET_TOR_CONTROL = u"Control Port"
-DSET_NET_OWN_HOSTNAME = u"Eigene TorChat-ID"
-DSET_NET_LISTEN_INTERFACE = u"Binden an Adapter"
-DSET_NET_LISTEN_PORT = u"Binden an Port"
+# warning about offline buddy
+
+D_WARN_BUDDY_OFFLINE_TITLE = u'TorChat: Buddy ist offline'
+D_WARN_BUDDY_OFFLINE_MESSAGE = \
+    u"Diese Operation ist nicht möglich mit Offline-Buddies"
+
+# warning about multiple files
+
+D_WARN_FILE_ONLY_ONE_TITLE = u'TorChat: Mehrere Dateien'
+D_WARN_FILE_ONLY_ONE_MESSAGE = \
+    u"Sie können nicht mit einer Operation mehrere Dateitransfers gleichzeitig auslösen. Starten Sie die Transfers einzeln, oder senden Sie eine Zip-Datei."
+
+##warning about file save error
+
+D_WARN_FILE_SAVE_ERROR_TITLE = u'TorChat: Fehler beim Anlegen der Datei'
+D_WARN_FILE_SAVE_ERROR_MESSAGE = \
+    u"""Die Datei '%s' konnte nicht erzeugt werden.
+
+%s"""
+
+##warning about file already exists
+
+D_WARN_FILE_ALREADY_EXISTS_TITLE = u'TorChat: Datei existiert bereits'
+D_WARN_FILE_ALREADY_EXISTS_MESSAGE = \
+    u"Die Datei '%s' existiert bereits.\nÜberschreiben?"
+
+# dialog: add/edit contact
+
+DEC_TITLE_ADD = u'Neuen Kontakt anlegen'
+DEC_TITLE_EDIT = u'Kontakt bearbeiten'
+DEC_TORCHAT_ID = u'TorChat ID'
+DEC_DISPLAY_NAME = u'Angezeigter Name'
+DEC_INTRODUCTION = u'Kurze Vorstellung'
+DEC_MSG_16_CHARACTERS = \
+    u'Die Adresse muss genau 16 Zeichen lang sein, nicht %i.'
+DEC_MSG_ONLY_ALPANUM = \
+    u'Die Adresse kann nur as Ziffern und Kleinbuchstaben ohne Umlaute bestehen'
+DEC_MSG_ALREADY_ON_LIST = u'%s ist bereits auf Ihrer Liste'
+
+# file transfer window
+
+DFT_FILE_OPEN_TITLE = u'Sende Datei an %s'
+DFT_FILE_SAVE_TITLE = u'Speichere Datei von %s'
+DFT_SEND = u'''Sende %s
+an %s
+%04.1f%% (%i von %i Bytes)'''
+DFT_RECEIVE = u'''Empfange %s
+von %s
+%04.1f%% (%i von %i Bytes)'''
+
+# settings dialaog
+
+DSET_TITLE = u'TorChat Konfiguration'
+DSET_NET_TITLE = u'Netzwerk'
+DSET_NET_ACTIVE = u'aktiv'
+DSET_NET_INACTIVE = u'inaktiv'
+DSET_NET_TOR_ADDRESS = u'Tor-Proxy Addresse'
+DSET_NET_TOR_SOCKS = u'Socks Port'
+DSET_NET_TOR_CONTROL = u'Control Port'
+DSET_NET_OWN_HOSTNAME = u'Eigene TorChat-ID'
+DSET_NET_LISTEN_INTERFACE = u'Binden an Adapter'
+DSET_NET_LISTEN_PORT = u'Binden an Port'
 DSET_GUI_TITLE = u"Benutzeroberfläche"
-DSET_GUI_LANGUAGE = u"Sprache"
-DSET_GUI_OPEN_MAIN_HIDDEN = u"Starte mit minimiertem Hauptfenster"
+DSET_GUI_LANGUAGE = u'Sprache'
+DSET_GUI_OPEN_MAIN_HIDDEN = u'Starte mit minimiertem Hauptfenster'
 DSET_GUI_OPEN_CHAT_HIDDEN = u"Öffne neue Fenster nicht automatisch"
-DSET_GUI_NOTIFICATION_POPUP = u"Benachrichtigungs-PopUp"
-DSET_GUI_FLASH_WINDOW = u"Blinkender Fenstertitel bei neuer Nachricht"
-DSET_MISC_TITLE = u"Verschiedenes"
+DSET_GUI_NOTIFICATION_POPUP = u'Benachrichtigungs-PopUp'
+DSET_GUI_FLASH_WINDOW = u'Blinkender Fenstertitel bei neuer Nachricht'
+DSET_MISC_TITLE = u'Verschiedenes'
 DSET_MISC_TEMP_IN_DATA = u"Temporäre Dateien im Datenverzeichnis"
-DSET_MISC_TEMP_CUSTOM_DIR = u"Verzeichnis für temporäre Dateien (leer lassen für OS-Default)"
+DSET_MISC_TEMP_CUSTOM_DIR = \
+    u"Verzeichnis für temporäre Dateien (leer lassen für OS-Default)"
 
-#notices in the chat window (those in square brackets)
-NOTICE_DELAYED_MSG_WAITING = u"Verzögerte Nachrichten in der Sendewarteschlange"
+# notices in the chat window (those in square brackets)
+
+NOTICE_DELAYED_MSG_WAITING = \
+    u"Verzögerte Nachrichten in der Sendewarteschlange"
 NOTICE_DELAYED_MSG_SENT = u"Verzögerte Nachrichten wurden gesendet"
 NOTICE_DELAYED = u"Verzögert"
 
-# #messagebox for offline messages
-MSG_OFFLINE_TITLE = u"TorChat: Ungesendete Nachrichten"
-MSG_OFFLINE_EMPTY = u"Es liegen keine ungesendeten Nachrichten (mehr) für %s vor"
-MSG_OFFLINE_QUEUED = u"Ungesendete Nachrichten für %s:\n\n%s"
+##messagebox for offline messages
 
-#about box
+MSG_OFFLINE_TITLE = u'TorChat: Ungesendete Nachrichten'
+MSG_OFFLINE_EMPTY = \
+    u"Es liegen keine ungesendeten Nachrichten (mehr) für %s vor"
+MSG_OFFLINE_QUEUED = u"""Ungesendete Nachrichten für %s:
+
+%s"""
+
+# about box
+
 ABOUT_TITLE = u"Über TorChat"
-ABOUT_TEXT = u"""TorChat %(version)s (svn: r%(svn)s)
+ABOUT_TEXT = \
+    u"""TorChat %(version)s (svn: r%(svn)s)
   %(copyright)s
 
 Übersetzungen:
