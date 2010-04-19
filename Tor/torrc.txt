@@ -21,6 +21,8 @@ DataDirectory tor_data
 AvoidDiskWrites 1
 LongLivedPorts 11009
 
+Log err stderr
+
 ## turning off SafeLogging will leave sensitive information on your disk
 ## the built in default is save logging turned on (set to 1).
 ## so don't remove the # from that line unless you need it
